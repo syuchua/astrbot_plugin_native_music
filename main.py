@@ -136,14 +136,12 @@ class MusicSenderPlugin(Star):
         yield event.plain_result(f"音乐目录已设置为: {path}")
 
     @llm_tool(name="play_music") 
-    async def play_music_tool(self, event: AstrMessageEvent, request: object):
+    async def play_music_tool(self, event: AstrMessageEvent, song_name: str):
         '''当用户说"点歌xxx"或"我想听xxx"时调用此工具播放音乐
         
         Args:
-            request(object): 包含歌曲名称的请求对象
-                song_name(string): 歌曲名称
+            song_name(string): 需要播放的歌曲名称，例如："海底"
         '''
-        song_name = request.get("song_name", "")
         if not song_name:
             yield event.plain_result("请指定要播放的歌曲名称")
             return
